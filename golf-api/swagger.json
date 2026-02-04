@@ -1,0 +1,370 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Yet Another Node.js Blogg Application API",
+    "description": "Yet Another Node.js Blogg Application API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:8999",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "API for users in the system"
+    }, 
+    {
+        "name": "Course", 
+        "description": "API calls for courses"
+    }, 
+    {
+        "name": "Tee", 
+        "description": "API calls for course tee"
+    },
+    {
+        "name": "Player", 
+        "description": "API calls for players"
+    },
+    {
+        "name": "Score", 
+        "description": "API calls for weekly scores"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {  
+    "/course":{
+        "post": {
+            "tags": [
+            "Course"
+            ],
+            "description": "Create new course in system",
+            "parameters": [
+            {
+                "name": "course",
+                "in": "body",
+                "description": "Course that we want to create",
+                "schema": {
+                "$ref": "#/definitions/Course"
+                }
+            }
+            ],
+            "produces": [
+            "application/json"
+            ],
+            "responses": {
+            "200": {
+                "description": "New course is created",
+                "schema": {
+                "$ref": "#/definitions/Course"
+                }
+            }
+        }
+      }, 
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "Get all courses in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Courses"
+            }
+          }
+        }
+      }
+    }, 
+    "/tee/{courseid}": {
+      "parameters": [
+        {
+          "name": "courseid",
+          "in": "path",
+          "required": true,
+          "description": "ID of course that we want to find",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Tee"
+        ],
+        "summary": "Get tees from course with given ID",
+        "responses": {
+          "200": {
+            "description": "Tees found",
+            "schema": {
+              "$ref": "#/definitions/Tees"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user with given ID",
+        "tags": [
+          "Tee"
+        ],
+        "responses": {
+          "200": {
+            "description": "User is deleted",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update user with give ID",
+        "tags": [
+          "Tee"
+        ],
+        "parameters": [
+          {
+            "name": "tees",
+            "in": "body",
+            "description": "Tees to add to a given course",
+            "schema": {
+              "$ref": "#/definitions/Tees"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User is updated",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    }
+    ,  
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Create new user in system",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to create",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "New user is created",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get all users in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Users"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "description": "ID of user that we want to find",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get user with given ID",
+        "responses": {
+          "200": {
+            "description": "User is found",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user with given ID",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "User is deleted",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update user with give ID",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User with new values of properties",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User is updated",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": [
+        "email",
+        "_id"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        }
+      }
+    },
+    "Users": {
+      "type": "array",
+      "$ref": "#/definitions/User"
+    },
+    "Course": {
+        "required":[],
+        "properties": {
+        "name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "city": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "stateid": {
+          "type": "integer"
+        },
+        "zip": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "ncrdb": {
+          "type": "string"
+        }
+      }
+    },
+    "Courses": {
+      "type": "array", 
+      "$ref": "#/definitions/Course"
+    },
+    "Tee": {
+        "required":[],
+        "properties": {
+        "courseid": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "color": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "numberofholes": {
+          "type": "integer"
+        },
+        "rating": {
+          "type": "number"
+        },
+        "slope": {
+          "type": "integer"
+        },
+        "par": {
+          "type": "integer"
+        },
+        "front9rating": {
+          "type": "number"
+        },
+        "front9slope": {
+          "type": "integer"
+        },
+        "front9par": {
+          "type": "integer"
+        },
+        "back9rating": {
+          "type": "number"
+        },
+        "back9slope": {
+          "type": "integer"
+        },
+        "back9par": {
+          "type": "integer"
+        }
+      }
+    },
+    "Tees": {
+      "type": "array", 
+      "$ref": "#/definitions/Tee"
+    }
+  }
+}

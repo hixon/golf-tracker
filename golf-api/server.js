@@ -3,6 +3,7 @@ import process from 'process';
 import cors from 'cors';
 import player from './player.js';
 import course from './course.js';
+import swagger from './swagger.js';
 
 const app = express();
 app.use(cors({
@@ -46,32 +47,36 @@ app.post(`${home}/course`, async function(req, res){
     res.status(201).json(req.body);
 });
 
-app.post(`${home}/tee/{:slug}`, async function(req, res){
+app.post(`${home}/bulktee/{:courseid}`, async function(req, res){
     console.log('POST new TEES');
-    const tee = req.body;
-    const courseid = req.params.slug;
+    const tees = req.body;
+    const courseid = req.params.courseid;
 
-    console.log(tee);
+    console.log(tees);
     console.log(courseid);
-    
-    const name = tee.name;
-    const color = tee.color;
-    const text = tee.text;
-    const numberofholes = tee.numberofholes;
-    const rating = tee.rating;
-    const slope = tee.slope;
-    const par = tee.par;
-    const front9rating = tee.front9rating;
-    const front9slope = tee.front9slope;
-    const front9par = tee.front9par;
-    const back9rating = tee.back9rating;
-    const back9slope = tee.back9slope;
-    const back9par = tee.back9par;
 
-    await course.postTee(courseid, name, color, text, numberofholes, rating, slope, par, 
-        front9rating, front9slope, front9par, back9rating, back9slope, back9par);
+    if(!Array.isArray(req.body)){
+        return res.status(400).json({message: 'Request body should be an array'});
+    }
 
-    res.status(201).json({tee: tee}, {course: courseid});
+    await course.bulkPostTees(tees, courseid);
+
+    res.status(201).json({tees: tees}, {course: courseid});
 });
+
+app.get(`${home}/course`, async function(req, res){
+    const courses = await course.getCourses();
+    res.status(200).json(courses);
+});
+
+app.get(`${home}/tee/{:courseid}`, async function(req, res){
+   const courseid = req.params.courseid;
+   console.log('GET tees for course', courseid);
+
+   const tees = await course.getCourseTees(courseid);
+   res.status(200).json(tees);
+});
+
+swagger(app);
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));
