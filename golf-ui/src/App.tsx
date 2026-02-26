@@ -4,9 +4,24 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 import GolfNames from './Components/GolfNames';
+import Courses from './Components/Courses';
+import Tees from './Components/Tees';
 
 function App() {
   const [count, setCount] = useState(0)
+  const [courseid, setCourseId] = useState("");
+
+  function handleSelectChange(e: React.ChangeEvent<HTMLSelectElement>){
+        setCourseId(e.target.value);
+    }
+    
+
+  let courseDetails;
+  if(courseid != ""){
+    courseDetails = <Tees courseid={courseid}></Tees>
+  }
+
+
 
   return (
     <>
@@ -30,6 +45,8 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <Courses onSelectChange={handleSelectChange}></Courses>
+      { courseDetails }
       <GolfNames></GolfNames>
     </>
   )
