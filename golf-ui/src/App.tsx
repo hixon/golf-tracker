@@ -7,6 +7,7 @@ import GolfNames from './Components/GolfNames';
 import Courses from './Components/Courses';
 import Tees from './Components/Tees';
 
+
 function App() {
   const [count, setCount] = useState(0)
   const [courseid, setCourseId] = useState("");
@@ -14,14 +15,12 @@ function App() {
   function handleSelectChange(e: React.ChangeEvent<HTMLSelectElement>){
         setCourseId(e.target.value);
     }
-    
 
-  let courseDetails;
+  let courseDetails, scoreDetails;
   if(courseid != ""){
     courseDetails = <Tees courseid={courseid}></Tees>
+    scoreDetails = <GolfNames courseid={courseid}></GolfNames>
   }
-
-
 
   return (
     <>
@@ -47,7 +46,7 @@ function App() {
       </p>
       <Courses onSelectChange={handleSelectChange}></Courses>
       { courseDetails }
-      <GolfNames></GolfNames>
+      <GolfNames courseid={courseid}></GolfNames>
     </>
   )
 }

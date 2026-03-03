@@ -42,7 +42,7 @@ async function postTee(courseid, name, color, text, numberofholes, rating, slope
 
 async function getCourseTees(courseid){
     return new Promise((resolve, reject) => {
-        connection.query('SELECT uuid, name, color, text, rating, slope, par FROM tee WHERE courseid = ? AND active = true', [courseid], (err, rows) => {
+        connection.query('SELECT uuid, name, color, text, rating, slope, par, normalBox FROM tee WHERE courseid = ? AND active = true', [courseid], (err, rows) => {
             if (err) {
                 reject(err);
             } else {
