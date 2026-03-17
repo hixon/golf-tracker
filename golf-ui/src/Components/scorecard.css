@@ -2,8 +2,12 @@
      font-weight: bold;
 }
 
-td{
-    width: 2em;
+th{
+    width: 2.5em;
+}
+
+.hole-score{
+    width: 2.5em;
 }
 
 .tableheadercolumn{

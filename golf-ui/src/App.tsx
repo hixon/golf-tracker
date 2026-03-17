@@ -7,6 +7,7 @@ import GolfNames from './Components/GolfNames';
 import Courses from './Components/Courses';
 import Tees from './Components/Tees';
 
+
 function App() {
   const [count, setCount] = useState(0)
   const [courseid, setCourseId] = useState("");
@@ -14,14 +15,12 @@ function App() {
   function handleSelectChange(e: React.ChangeEvent<HTMLSelectElement>){
         setCourseId(e.target.value);
     }
-    
 
-  let courseDetails;
+  let courseDetails, scoreDetails;
   if(courseid != ""){
     courseDetails = <Tees courseid={courseid}></Tees>
+    scoreDetails = <GolfNames courseid={courseid}></GolfNames>
   }
-
-
 
   return (
     <>
@@ -33,7 +32,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      {/* <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -41,13 +40,13 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
-      </div>
-      <p className="read-the-docs">
+      </div> */}
+      {/* <p className="read-the-docs">
         Click on the Vite and React logos to learn more
-      </p>
+      </p> */}
       <Courses onSelectChange={handleSelectChange}></Courses>
       { courseDetails }
-      <GolfNames></GolfNames>
+      <GolfNames courseid={courseid}></GolfNames>
     </>
   )
 }

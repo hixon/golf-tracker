@@ -102,6 +102,14 @@ app.get(`${home}/tees/{:courseid}`, async function(req, res){
     res.status(200).json(holes);
 });
 
+app.get(`${home}/players/{:courseid}`, async function(req, res){
+    const courseid = req.params.courseid;
+    console.log('GET details for players with a given course', courseid);
+
+    const playerdeets = await player.getPlayersWithCourse(courseid); 
+    res.status(200).json(playerdeets);
+});
+
 swagger(app);
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));

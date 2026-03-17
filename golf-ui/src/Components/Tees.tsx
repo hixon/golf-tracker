@@ -66,33 +66,33 @@ function Tees({courseid}: CourseProps){
         const currentteebox = teedata?.filter((holes) => holes.teeid == teeid);
 
         return currentteebox?.map((hole) => (
-            <td>{hole.length}</td> 
+            <th key={hole.uuid}>{hole.length}</th> 
         ));
     }
 
     function getTeeBoxLength(teeid: string){
         const currentteebox = teedata?.filter((holes) => holes.teeid == teeid);
 
-        return <td>{currentteebox?.reduce((sum, item) => sum + item.length, 0)}</td>
+        return <th>{currentteebox?.reduce((sum, item) => sum + item.length, 0)}</th>
     }
     
     function getFrontLength(teeid: string){
         const currentteebox = teedata?.filter((holes) => holes.teeid == teeid && holes.side == 1);
 
-        return <td>{currentteebox?.reduce((sum, item) => sum + item.length, 0)}</td>
+        return <th>{currentteebox?.reduce((sum, item) => sum + item.length, 0)}</th>
     }
 
     function getBackLength(teeid: string){
         const currentteebox = teedata?.filter((holes) => holes.teeid == teeid && holes.side == 2);
 
-        return <td>{currentteebox?.reduce((sum, item) => sum + item.length, 0)}</td>
+        return <th>{currentteebox?.reduce((sum, item) => sum + item.length, 0)}</th>
     }
 
     function getParForCourse(){
         if(data != undefined){
             const tees = teedata?.filter((holes) => holes.teeid == data[0].uuid);
 
-            return <td>{tees?.reduce((sum, item) => sum += item.par, 0)}</td>
+            return <th>{tees?.reduce((sum, item) => sum += item.par, 0)}</th>
         }
     }
 
@@ -100,7 +100,7 @@ function Tees({courseid}: CourseProps){
         if(data != undefined){
             const tees = teedata?.filter((holes) => holes.teeid == data[0].uuid && holes.side == 1);
 
-            return <td>{tees?.reduce((sum, item) => sum += item.par, 0)}</td>
+            return <th>{tees?.reduce((sum, item) => sum += item.par, 0)}</th>
         }
     }
 
@@ -108,7 +108,7 @@ function Tees({courseid}: CourseProps){
         if(data != undefined){
             const tees = teedata?.filter((holes) => holes.teeid == data[0].uuid && holes.side == 2);
 
-            return <td>{tees?.reduce((sum, item) => sum += item.par, 0)}</td>
+            return <th>{tees?.reduce((sum, item) => sum += item.par, 0)}</th>
         }
     }
 
@@ -117,7 +117,7 @@ function Tees({courseid}: CourseProps){
             const tees = teedata?.filter((holes) => holes.teeid == data[0].uuid);
 
             return tees?.map((hole) => (
-                <td>{hole.hcp18}</td>
+                <th key={hole.uuid}>{hole.hcp18}</th>
             ));
         }
     }
@@ -127,7 +127,7 @@ function Tees({courseid}: CourseProps){
             const tees = teedata?.filter((holes) => holes.teeid == data[0].uuid);
 
             return tees?.map((hole) => (
-                <td>{hole.par}</td>
+                <th key={hole.uuid}>{hole.par}</th>
             ));
         }
     }
@@ -135,51 +135,49 @@ function Tees({courseid}: CourseProps){
     return (
         <div>
             <h1>Scorecard Details</h1>
-            <label>Tees</label>
             <table className='scorecard'>
+                <thead>
                 <tr>
-                    <th className='holehcppar'>
-                        <td className='tableheadercolumn'>Hole</td>
-                        <td>1</td><td>2</td>
-                        <td>3</td><td>4</td>
-                        <td>5</td><td>6</td>
-                        <td>7</td><td>8</td>
-                        <td>9</td><td>10</td>
-                        <td>11</td><td>12</td>
-                        <td>13</td><td>14</td>
-                        <td>15</td><td>16</td>
-                        <td>17</td><td>18</td>
-                        <td>Out</td><td>In</td>
-                        <td>Total</td>
-                    </th>
+                    
+                        <th className='tableheadercolumn'>Hole</th>
+                        <th>1</th><th>2</th>
+                        <th>3</th><th>4</th>
+                        <th>5</th><th>6</th>
+                        <th>7</th><th>8</th>
+                        <th>9</th><th>10</th>
+                        <th>11</th><th>12</th>
+                        <th>13</th><th>14</th>
+                        <th>15</th><th>16</th>
+                        <th>17</th><th>18</th>
+                        <th>Out</th><th>In</th>
+                        <th>Total</th>
+                    
                 </tr>
-                
+
                 {data?.map((teebox) => (
-                    <tr>
-                        <th className='teebox' style={{backgroundColor: teebox.color, color: teebox.text}}>
-                            <td className='tableheadercolumn'>{teebox.name}</td>
+                    <tr key={teebox.uuid} className='teebox' style={{backgroundColor: teebox.color, color: teebox.text}}>
+                        
+                            <th className='tableheadercolumn'>{teebox.name}</th>
                             {getEachTeeBoxInfo(teebox.uuid)}
                             {getFrontLength(teebox.uuid)}
                             {getBackLength(teebox.uuid)}
                             {getTeeBoxLength(teebox.uuid)}
-                        </th>
+                        
                     </tr>
                 ))}
-                <tr>
-                    <th className='holehcppar'>
-                        <td className='tableheadercolumn'>Handicap</td>
+                 <tr className='holehcppar'>
+                        <th className='tableheadercolumn'>Handicap</th>
                         {getHandicapPerHole()}
-                    </th>
                 </tr>
-                <tr>
-                    <th className='holehcppar'>
-                        <td className='tableheadercolumn'>Par</td>
+                <tr className='holehcppar'>
+                        <th className='tableheadercolumn'>Par</th>
                         {getParPerHole()}
                         {getParFront()}
                         {getParBack()}
                         {getParForCourse()}
-                    </th>
-                </tr>
+                </tr> 
+
+                </thead>
             </table>
         </div>
     );
