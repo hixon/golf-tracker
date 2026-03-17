@@ -135,7 +135,6 @@ function Tees({courseid}: CourseProps){
     return (
         <div>
             <h1>Scorecard Details</h1>
-            <label>Tees</label>
             <table className='scorecard'>
                 <thead>
                 <tr>

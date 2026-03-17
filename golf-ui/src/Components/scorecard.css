@@ -3,7 +3,11 @@
 }
 
 th{
-    width: 2em;
+    width: 2.5em;
+}
+
+.hole-score{
+    width: 2.5em;
 }
 
 .tableheadercolumn{
